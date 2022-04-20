@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2beae306-00fe-42de-b6ef-c1e9f604bf03" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/curses_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/curses_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vcos_commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/vcos_commands.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,12 +30,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "X:/Documents/GitHub/voice_controlled_open_scad/curses_test.py"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;X:/Documents/GitHub/voice_controlled_open_scad/curses_test.py&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="curses_test" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="voice_controlled_open_scad" />
@@ -66,7 +68,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650382365959</updated>
-      <workItem from="1650382370819" duration="5880000" />
+      <workItem from="1650382370819" duration="13504000" />
+      <workItem from="1650451854276" duration="12584000" />
     </task>
     <servers />
   </component>
