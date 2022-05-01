@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2beae306-00fe-42de-b6ef-c1e9f604bf03" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/testing/assemble_test_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vcos_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code_scraps.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/curses_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/curses_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install.py" beforeDir="false" afterPath="$PROJECT_DIR$/install.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vcos_commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/vcos_commands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/example_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/testfile.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vcos_commands.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vcos_data.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,16 +46,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "X:/Documents/GitHub/voice_controlled_open_scad/curses_test.py",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "project.scopes"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;X:/Documents/GitHub/voice_controlled_open_scad/curses_test.py&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.scopes&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="curses_test" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="voice_controlled_open_scad" />
@@ -91,7 +90,10 @@
       <updated>1650382365959</updated>
       <workItem from="1650382370819" duration="13504000" />
       <workItem from="1650451854276" duration="13702000" />
-      <workItem from="1651152137646" duration="39829000" />
+      <workItem from="1651152137646" duration="42082000" />
+      <workItem from="1651321248696" duration="8636000" />
+      <workItem from="1651332258706" duration="15244000" />
+      <workItem from="1651404880254" duration="12697000" />
     </task>
     <servers />
   </component>

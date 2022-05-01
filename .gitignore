@@ -1,6 +1,9 @@
 
 .idea/workspace.xml
-testing/VCOS.py
+__pycache__/vcos_commands.cpython-310.pyc
+__pycache__/vcos_data.cpython-310.pyc
+libs/__pycache__/vcos_commands.cpython-310.pyc
+libs/__pycache__/vcos_data.cpython-310.pyc
 openscad/templates/translate.json
 openscad/templates/rotate.json
 openscad/templates/module.json
@@ -183,5 +186,3 @@ openscad/color-schemes/editor/solarized-dark.json
 openscad/color-schemes/editor/monokai.json
 openscad/color-schemes/editor/light-background.json
 openscad/color-schemes/editor/dark-background.json
-.idea/workspace.xml
-.idea/workspace.xml

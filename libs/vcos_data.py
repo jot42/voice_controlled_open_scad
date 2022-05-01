@@ -1,9 +1,7 @@
 import curses
 import platform
-from dataclasses import dataclass
 
 
-@dataclass
 class VCOSData:
     # System variables
     version = '0.0.1'
@@ -27,8 +25,8 @@ class VCOSData:
     text_box = []
 
     # The preset limit for file sizes
-    file_column_limit = 100
-    file_line_limit = 100
+    file_column_limit = 1000
+    file_line_limit = 1000
 
     # Initialise main screen
     screen_main = curses.initscr()
@@ -47,35 +45,16 @@ class VCOSData:
 
     # Screen Data
     screen_border_commands = curses.newwin(border_rows, command_cols + 2, 4, 0)
-    screen_container_commands = curses.newwin(window_rows, command_cols, 5, 1)
+    screen_container_commands = screen_main.subwin(window_rows, command_cols, 5, 1)
 
     # Initialise Sub-window Data
     screen_border_editor = curses.newwin(border_rows, border_cols, 4, command_cols + 2)
-    screen_container_editor = curses.newwin(window_rows, editor_cols, 5, command_cols + 3)
+    screen_container_editor = screen_main.subwin(window_rows, editor_cols, 5, command_cols + 3)
 
     # Create borders for text boxes
     screen_border_commands.box()
     screen_border_editor.box()
 
     # File handling
-    file_path = ''
-
-    def refresh_screen(self, screen_id):
-        """
-        Refreshes the screen with the provided id
-
-        Parameters
-            self - This class object
-            screen_id - The id of the screen as an int
-        """
-
-        if screen_id == 0:
-            self.screen_main.refresh()
-        elif screen_id == 1:
-            self.screen_border_commands.refresh()
-        elif screen_id == 2:
-            self.screen_border_editor.refresh()
-        elif screen_id == 3:
-            self.screen_container_commands.refresh()
-        elif screen_id == 4:
-            self.screen_container_editor.refresh()
+    scad_file_path = ''  # Used to pass to the OpenSCAD renderer
+    project_file_path = ''  # Used to load and save the current project

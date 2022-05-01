@@ -1,222 +1,206 @@
 import curses
-import subprocess
 from re import search
 
-import vcos_commands as commands
-from vcos_data import VCOSData as Data
-
-# Initialise all data
-data = Data()
+import libs.vcos_commands as commands
 
 
-def move_cursor(d, v):
+def input_parser():
     """
-    Moves the cursor in the selected direction by the provided number of characters
-
-    Parameters:
-    d - selected direction
-    v - amount to move the cursor
+    A function that serves as the main loop for the program
     """
 
-    for i in range(v):
-
-        if d == "U":
-            if i == 1:
-                commands.update_command_window(data, "Scroll Up " + str(v))
-
-        if cursor_scroll_v != 0:
-            cursor_scroll_v += -1
-
-        elif d == "D":
-            if i == 1:
-                commands.update_command_window(data, "Scroll Down " + str(v))
-
-        if cursor_scroll_v < data.window_rows - 1 or (cursor_scroll_v + screen_scroll_v) < len(text_box):
-            cursor_scroll_v += 1
-
-        elif d == "L":
-            if i == 1:
-                commands.update_command_window(data, "Scroll Left " + str(v))
-
-    if cursor_scroll_h != 0:
-        cursor_scroll_h += -1
-
-    elif d == "R":
-        if i == 1:
-            commands.update_command_window(data, "Scroll Right " + str(v))
-
-    if cursor_scroll_h < editor_cols:
-        cursor_scroll_h += 1
-
-    elif d == "SU":
-        print("su trigger")
-    if screen_scroll_v > 0:
-        screen_scroll_v += -1
-
-    elif d == "SD":
-        print("sd trigger")
-    if screen_scroll_v < file_line_limit - data.window_rows:
-        screen_scroll_v += 1
-
-    elif d == "SL":
-        print("sl trigger")
-    if screen_scroll_h > 0:
-        screen_scroll_h += -1
-
-    elif d == "SR":
-        print("sr trigger")
-    if screen_scroll_h < file_column_limit - editor_cols:
-        screen_scroll_h += 1
-    else:
-        commands.update_command_window(data.window_rows, "Scroll Right Failed")
-
-    update_text_window()
-
-
-def render_image(file_dir):
-    file_dir = file_dir.replace('\\', '/')
-
-    # Blocks the renderer if no file is open
-    if file_dir == "":
-        commands.update_command_window(data.window_rows, "File not loaded")
-    else:
-        # Assemble the command to run the renderer
-        out_file = '"' + file_dir.replace(".scad", ".png") + '"'
-        full_command = ".\\openscad\\openscad.com -o " + "\"" + out_file[2:] + " " + '"' + file_dir[1:] + '"'
-
-        # Run the renderer on the current file and update the command window once complete
-        subprocess.run(full_command, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-        commands.update_command_window(data, "Render complete")
-
-
-def input_parser() -> object:
-    """
-    A recursive function for input detection
-    """
-
-    commands.update_command_window(data, "back at parser")
-    response = commands.record_audio(data)
-    commands.update_header_box(data, 1)
+    response = commands.symbol_translate(commands.record_audio())
+    commands.update_header_box(2)
 
     try:
-        # Exit
-        if search("exit", response):
-            curses.endwin()
-            quit()
+        if not response == "":
 
-        # Add Text
-        elif i == 32:
-            commands.add_text(data, "@")
-            commands.update_text_window(data)
+            # Help
+            if search("help", response):
+                commands.update_command_window("VCOS Help:")
+                commands.update_command_window("'help' - Shows this help window")
+                commands.update_command_window("'exit' - Exits this program")
+                commands.update_command_window("'load' - Starts the loading dialog")
+                commands.update_command_window("'create file' - Starts the new file dialog")
+                commands.update_command_window("'scroll [direction] [amount]' - Moves the cursor")
+                commands.update_command_window("'screen [direction] [amount]' - Scrolls the text view")
+                commands.update_command_window("'insert text [phrase]' - Inserts the spoken text")
+                commands.update_command_window("'render' - Renders the current loaded project in OpenSCAD")
+                commands.update_command_window("")
+                commands.update_command_window("Ready.")
+                commands.update_command_window("")
 
-        # Scroll Cursor Left
-        elif search("scroll left", response):
-            try:
-                move_cursor('L', int(commands.text_to_int(response.split("left", 1)[1])))
-            except IndexError:
-                commands.update_command_window(data.window_rows, "Please specify how far to scroll")
+            # Exit
+            elif search("exit", response):
+                curses.endwin()
+                quit()
 
-        # Scroll Cursor Right
-        elif search("scroll right", response):
-            try:
-                move_cursor('R', int(commands.text_to_int(response.split("right", 1)[1])))
-            except IndexError:
-                commands.update_command_window(data.window_rows, "Please specify how far to scroll")
+            # Load File
+            elif search("load", response):
+                commands.update_command_window("Load")
+                commands.update_command_window("")
+                commands.load_file_dialog()
+                commands.update_command_window("Ready.")
+                commands.update_command_window("")
 
-        # Scroll Cursor Up
-        elif search("scroll up", response):
-            try:
-                move_cursor('U', int(commands.text_to_int(response.split("up", 1)[1])))
-            except IndexError:
-                commands.update_command_window(data.window_rows, "Please specify how far to scroll")
+            # Create File
+            elif search("create file", response):
+                commands.update_command_window("Create File")
+                commands.update_command_window("")
+                commands.create_new_file_dialog()
+                commands.update_command_window("Ready.")
+                commands.update_command_window("")
 
-        # Scroll Cursor Down
-        elif search("scroll down", response):
-            try:
-                move_cursor('D', int(commands.text_to_int(response.split("down", 1)[1])))
-            except IndexError:
-                commands.update_command_window(data.window_rows, "Please specify how far to scroll")
+            # Scroll Cursor Left
+            elif search("scroll left", response):
+                try:
+                    commands.move_cursor('L', int(commands.symbol_translate(response.split("left", 1)[1])), True)
+                    commands.update_command_window("Ready.")
+                    commands.update_command_window("")
+                except IndexError:
+                    commands.update_command_window("Please specify how far to scroll")
 
-        elif response == 119:
-            move_cursor('SU', 1)
+            # Scroll Cursor Right
+            elif search("scroll right", response):
+                try:
+                    commands.move_cursor('R', int(commands.symbol_translate(response.split("right", 1)[1])), True)
+                    commands.update_command_window("Ready.")
+                    commands.update_command_window("")
+                except IndexError:
+                    commands.update_command_window("Please specify how far to scroll")
 
-        elif response == 115:
-            move_cursor('SD', 1)
+            # Scroll Cursor Up
+            elif search("scroll up", response):
+                try:
+                    commands.move_cursor('U', int(commands.symbol_translate(response.split("up", 1)[1])), True)
+                    commands.update_command_window("Ready.")
+                    commands.update_command_window("")
+                except IndexError:
+                    commands.update_command_window("Please specify how far to scroll")
 
-        elif response == 97:
-            move_cursor('SL', 1)
+            # Scroll Cursor Down
+            elif search("scroll down", response):
+                try:
+                    commands.move_cursor('D', int(commands.symbol_translate(response.split("down", 1)[1])), True)
+                    commands.update_command_window("Ready.")
+                    commands.update_command_window("")
+                except IndexError:
+                    commands.update_command_window("Please specify how far to scroll")
 
-        elif response == 100:
-            move_cursor('SR', 1)
+            # Scroll Screen Left
+            elif search("screen left", response):
+                try:
+                    commands.move_cursor('SL', int(commands.symbol_translate(response.split("left", 1)[1])), True)
+                    commands.update_command_window("Ready.")
+                    commands.update_command_window("")
+                except IndexError:
+                    commands.update_command_window("Please specify how far to scroll")
 
-        # Enter Key - New Line
-        elif response == 10:
+            # Scroll Screen Right
+            elif search("screen right", response):
+                try:
+                    commands.move_cursor('SR', int(commands.symbol_translate(response.split("right", 1)[1])), True)
+                    commands.update_command_window("Ready.")
+                    commands.update_command_window("")
+                except IndexError:
+                    commands.update_command_window("Please specify how far to scroll")
 
-            new_text_box = []
+            # Scroll Screen Up
+            elif search("screen up", response):
+                try:
+                    commands.move_cursor('SU', int(commands.symbol_translate(response.split("up", 1)[1])), True)
+                    commands.update_command_window("Ready.")
+                    commands.update_command_window("")
+                except IndexError:
+                    commands.update_command_window("Please specify how far to scroll")
 
-            for a in range(len(data.text_box)):
-                new_text_box.append(data.text_box[i])
+            # Scroll Screen Down
+            elif search("screen down", response):
+                try:
+                    commands.move_cursor('SD', commands.symbol_translate(response.split("down", 1)[1]), True)
+                    commands.update_command_window("Ready.")
+                    commands.update_command_window("")
+                except IndexError:
+                    commands.update_command_window("Please specify how far to scroll")
 
-                if a == data.cursor_scroll_v:
-                    new_text_box.append("")
+            # Add Text
+            elif search("insert text", response):
+                try:
+                    commands.update_command_window("Insert Text")
+                    commands.add_text(response.split("text ", 1)[1])
 
-            text_box = new_text_box
+                except IndexError:
+                    commands.update_command_window("Please specify the text to add")
 
-            commands.update_text_window(data)
+                commands.update_command_window("Ready.")
+                commands.update_command_window("")
 
-        # Load File
-        elif search("load", response):
-            commands.update_command_window(data, "Load")
-            commands.update_command_window(data, " ")
-            commands.show_projects(data)
+            # Remove Text
+            elif search("backspace", response):
+                try:
+                    commands.remove_text(int(commands.symbol_translate(response.split("backspace", 1)[1])))
+                    commands.update_command_window("Ready.")
+                    commands.update_command_window("")
+                except IndexError:
+                    commands.update_command_window("Please specify how far to backspace")
 
-        # Help
-        elif search("help", response):
-            commands.update_command_window(data, "VCOS Help:")
-            commands.update_command_window(data, "'help' - Shows this help window")
-            commands.update_command_window(data, "'load' - Starts the loading dialog")
-            commands.update_command_window(data, "'scroll [direction] [amount]' - Moves the cursor")
-            commands.update_command_window(data, "'screen [direction] [amount]' - Scrolls the text view")
-            commands.update_command_window(data, "'render' - Renders the current loaded project in OpenSCAD")
+            # Insert New Line
+            elif search("insert line", response):
+                commands.update_command_window("Insert Line")
+                commands.update_command_window("")
+                commands.insert_new_line()
+                commands.update_command_window("Ready.")
+                commands.update_command_window("")
 
-        # Render image
-        elif search("render", response):
-            render_image(data.file_path)
+            # Delete Line
+            elif search("delete line", response):
+                commands.update_command_window("Delete Line")
+                commands.update_command_window("")
+                commands.remove_line()
+                commands.update_command_window("Ready.")
+                commands.update_command_window("")
+
+            # Render image
+            elif search("render", response):
+                commands.update_command_window("Rendering Project")
+                commands.update_command_window("")
+                commands.render_image(commands.data.scad_file_path)
+                commands.update_command_window("Ready.")
+                commands.update_command_window("")
+
+            elif search("save", response):
+                commands.update_command_window("Saving Project")
+                commands.update_command_window("")
+                commands.save_file()
 
     except ValueError:
         pass
 
-    input_parser()
 
-    print(data)
+if __name__ == "__main__":
+    # Setup curses runtime
+    curses.noecho()
+    curses.cbreak()
+    curses.start_color()
+    normalText = curses.A_NORMAL
+    curses.curs_set(0)
+    commands.data.screen_main.keypad(True)
 
+    # Curses colour pairs
+    curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_RED)
+    curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLUE)
 
-# Setup curses runtime
-curses.noecho()
-curses.cbreak()
-curses.start_color()
-normalText = curses.A_NORMAL
-curses.curs_set(0)
-data.screen_main.keypad(True)
+    commands.data.screen_main.refresh()
+    commands.data.screen_border_commands.refresh()
+    commands.data.screen_border_editor.refresh()
 
-# Curses colour pairs
-curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_RED)
-curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLUE)
+    commands.update_header_box(0)
+    commands.update_command_window("Calibrating your microphone, please wait")
+    commands.calibrate_audio()
 
-# Initialise curses screens
+    commands.update_command_window("Ready.")
+    commands.update_command_window("Say 'help' for a list of commands")
+    commands.update_command_window("")
 
-# Main Screen
-
-# Command Interpreter
-
-for i in range(data.window_rows):
-    commands.update_command_window(data, "")
-
-data.refresh_screen(0)
-data.refresh_screen(1)
-data.refresh_screen(2)
-
-commands.update_command_window(data, "Command Interpreter Ready")
-commands.update_command_window(data, "Say 'help' for a list of commands")
-input_parser()
-quit()
+    while True:
+        input_parser()
