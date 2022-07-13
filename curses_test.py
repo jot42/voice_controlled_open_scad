@@ -29,7 +29,7 @@ def input_parser():
                 commands.update_command_window("")
                 commands.update_command_window("Ready.")
                 commands.update_command_window("")
-
+ 
             # Exit
             elif search("exit", response):
                 curses.endwin()

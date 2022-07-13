@@ -1,0 +1,9 @@
+VCOS Help:
+'help' - Shows this help window"
+'exit' - Exits this program"
+'load' - Starts the loading dialog"
+'create file' - Starts the new file dialog"
+'scroll [direction] [amount]' - Moves the cursor"
+'screen [direction] [amount]' - Scrolls the text view"
+'insert text [phrase]' - Inserts the spoken text"
+'render' - Renders the current loaded project in OpenSCAD"

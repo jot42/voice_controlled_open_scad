@@ -10,9 +10,6 @@ from libs.vcos_data import VCOSData as Data
 
 data = Data()
 
-# Audio Requirements
-rec = sr.Recognizer()
-
 
 def update_header_box(state):
     """
