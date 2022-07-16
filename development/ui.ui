@@ -37,7 +37,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>258</width>
+      <width>471</width>
       <height>80</height>
      </rect>
     </property>
@@ -101,10 +101,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>590</y>
-      <width>670</width>
-      <height>150</height>
+      <x>840</x>
+      <y>520</y>
+      <width>521</width>
+      <height>221</height>
      </rect>
     </property>
     <property name="title">
@@ -115,8 +115,8 @@
       <rect>
        <x>5</x>
        <y>15</y>
-       <width>660</width>
-       <height>130</height>
+       <width>511</width>
+       <height>201</height>
       </rect>
      </property>
     </widget>
@@ -124,23 +124,32 @@
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>90</y>
-      <width>670</width>
-      <height>501</height>
+      <x>840</x>
+      <y>0</y>
+      <width>522</width>
+      <height>522</height>
      </rect>
     </property>
     <property name="title">
      <string>Render View</string>
     </property>
-    <widget class="QGraphicsView" name="imgRenderView">
+    <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
        <x>5</x>
        <y>15</y>
-       <width>660</width>
-       <height>481</height>
+       <width>512</width>
+       <height>512</height>
       </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>../res/default.png</pixmap>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
@@ -148,9 +157,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
-      <width>670</width>
-      <height>650</height>
+      <y>99</y>
+      <width>821</width>
+      <height>641</height>
      </rect>
     </property>
     <property name="title">
@@ -161,8 +170,8 @@
       <rect>
        <x>5</x>
        <y>15</y>
-       <width>660</width>
-       <height>630</height>
+       <width>811</width>
+       <height>621</height>
       </rect>
      </property>
     </widget>
@@ -170,7 +179,7 @@
    <widget class="QCommandLinkButton" name="cmdStart">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>480</x>
       <y>10</y>
       <width>185</width>
       <height>41</height>
@@ -186,7 +195,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>480</x>
       <y>50</y>
       <width>185</width>
       <height>41</height>
@@ -196,39 +205,6 @@
      <string>Stop</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_debug">
-    <property name="geometry">
-     <rect>
-      <x>1150</x>
-      <y>10</y>
-      <width>201</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Open Debug Suite</string>
-    </property>
-    <property name="autoRepeat">
-     <bool>false</bool>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1366</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionLoad"/>
-   </widget>
-   <addaction name="menuFile"/>
   </widget>
   <action name="actionLoad">
    <property name="text">
